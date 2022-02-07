@@ -1,25 +1,47 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
+import Restaurants from "../components/Restaurants";
 import SearchBar from "../components/SearchBar";
+import useRestaurant from "../hooks/useRestaurant";
 
-const SearchScreen = () => {
+const SearchScreen = ({ navigation }) => {
   const [search, setSearch] = useState("");
-  const searchHandler = () => {
-    console.log(search);
-  };
+  const [searchHandler, results, errorMessage] = useRestaurant();
   return (
-    <View>
+    <View style={styles.container}>
       <SearchBar
-        search={search}
-        setSearch={setSearch}
-        onSubmit={searchHandler}
+        value={search}
+        setValue={setSearch}
+        onSubmit={() => searchHandler(search)}
       />
-      <Text>Search Restaurants</Text>
-      <Text>{search}</Text>
+      {errorMessage ? (
+        <Text>{errorMessage}</Text>
+      ) : (
+        <ScrollView>
+          <Restaurants
+            navigation={navigation}
+            price="$"
+            title="Affordable"
+            restaurants={results}
+          />
+          <Restaurants
+            navigation={navigation}
+            price="$$"
+            title="Fancy"
+            restaurants={results}
+          />
+          <Restaurants
+            navigation={navigation}
+            price="$$$"
+            title="Expensive"
+            restaurants={results}
+          />
+        </ScrollView>
+      )}
     </View>
   );
 };
 
 export default SearchScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({ container: { flex: 1 } });
