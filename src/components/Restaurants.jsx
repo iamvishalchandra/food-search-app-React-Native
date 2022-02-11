@@ -5,7 +5,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import React, { useEffect } from "react";
+import React from "react";
 import RestaurantCard from "./RestaurantCard";
 import { withNavigation } from "react-navigation";
 const Restaurants = ({ title, restaurants, price, navigation }) => {
@@ -41,7 +41,7 @@ export default withNavigation(Restaurants);
 
 const styles = StyleSheet.create({
   container: { marginBottom: 10 },
-  title: { fontSize: 18, fontWeight: "bold", marginLeft: 10, marginBottom: 5 },
+  title: { fontSize: 18, fontWeight: "bold", marginLeft: 10 },
   category: {
     display: "flex",
     flexDirection: "row",
